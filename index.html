@@ -3,467 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nightcore's bio</title>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <title>Hello Kitty Link in Bio</title>
     <style>
+        :root {
+            --hk-pink: #FFB7C5;
+            --hk-dark-pink: #FF69B4;
+            --text-main: #4A4A4A;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 183, 197, 0.6);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-			<div id="kawaiiEffect"></div>
-
-<style>
-    #kawaiiEffect {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 1; /* Sits behind your main bio card */
-        overflow: hidden;
-    }
-
-    .kawaii-item {
-        position: absolute;
-        bottom: -50px;
-        pointer-events: none;
-        user-select: none;
-        will-change: transform;
-        opacity: 0;
-        animation: kawaiiFloatUp linear infinite;
-    }
-
-    .kawaii-item.small { font-size: 14px; }
-    .kawaii-item.medium { font-size: 24px; }
-    .kawaii-item.large { font-size: 34px; }
-
-    @keyframes kawaiiFloatUp {
-        0% {
-            transform: translateY(0) rotate(0deg) scale(0.5);
-            opacity: 0;
-        }
-        10% { opacity: 0.8; }
-        80% { opacity: 0.6; }
-        100% {
-            transform: translateY(-110vh) rotate(360deg) scale(1.2);
-            opacity: 0;
-        }
-    }
-</style>
-
-<script>
-    (function() {
-        const effectContainer = document.getElementById('kawaiiEffect');
-        const kawaiiSymbols = ['🎀', '⭐', '✨', '❤️', '🌸', '💝'];
-
-        function createKawaiiItem() {
-            if (!effectContainer) return;
-            const item = document.createElement('div');
-            item.className = 'kawaii-item';
-            item.textContent = kawaiiSymbols[Math.floor(Math.random() * kawaiiSymbols.length)];
-            
-            const sizes = ['small', 'medium', 'large'];
-            item.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
-            item.style.left = Math.random() * 100 + 'vw';
-            
-            const duration = Math.random() * 6 + 8; // 8s to 14s float
-            item.style.animationDuration = duration + 's';
-
-            effectContainer.appendChild(item);
-            setTimeout(() => item.remove(), duration * 1000);
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #FFF0F5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            color: var(--text-main);
+            padding: 20px;
         }
 
-        setInterval(createKawaiiItem, 400);
-    })();
-</script>
-<!-- === HELLO KITTY KAWAII POP EFFECT (END) === -->
-			color: #fff;
-			min-height: 100vh;
-			min-height: 100dvh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			padding: 20px 10px 100px 10px;
-			position: relative;
-			overflow-x: hidden;
-		}
-
-		/* Full-screen fixed background container for Mobile & PC */
-		body::before {
-			content: '';
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-image: url('background.jpg');
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
-			z-index: -2;
-		}
-
-		/* Dark Overlay */
-		.overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0, 0, 0, 0.55);
-			z-index: -1;
-		}
-
-        /* Main Glassmorphism Container */
-        .container {
+        /* --- Glassmorphism Container --- */
+        .bio-container {
+            position: relative;
+            z-index: 10;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--glass-border);
+            border-radius: 28px;
             width: 100%;
-            max-width: 420px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 30px 20px;
+            max-width: 400px;
+            padding: 35px 25px;
             text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.25);
         }
 
-        /* Avatar */
-        .avatar {
+        /* --- Avatar Header --- */
+        .avatar-wrapper {
+            position: relative;
             width: 110px;
             height: 110px;
+            margin: 0 auto 15px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.8);
             object-fit: cover;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+        }
+
+        .hk-bow-stamp {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 36px;
+            transform: rotate(15deg);
         }
 
         h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--hk-dark-pink);
+            margin-bottom: 5px;
         }
 
-        .bio-text {
-            font-size: 0.9rem;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
-        .bio-box {
-			width: 100%;                  /* Fills left-to-right inside container */
-			background: rgba(255, 255, 255, 0.15);
-			border: 1px solid rgba(255, 255, 255, 0.25);
-			border-radius: 16px;
-			padding: 16px 20px;
-			margin-bottom: 25px;
-			text-align: center;
-		}
-
-        .copy-box:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .copy-title {
-            font-size: 0.8rem;
-            color: #ffb6c1;
-            font-weight: 600;
-        }
-
-        .copy-val {
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* Social Icons Row */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        p.subtitle {
+            font-size: 14px;
+            color: #666;
             margin-bottom: 25px;
         }
 
-        .social-icons a {
-            color: #fff;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
+        /* --- Link Buttons --- */
+        .links-wrapper {
             display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-main);
             text-decoration: none;
-            font-size: 1.2rem;
-            transition: 0.3s;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.25s ease;
+            border: 2px solid transparent;
         }
 
-        .social-icons a:hover {
-            background: #fff;
-            color: #111;
-            transform: translateY(-3px);
-        }
-		
-
-        @keyframes fallAnimation {
-            0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translateY(50vh) rotate(180deg) translateX(60px);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(105vh) rotate(360deg) translateX(-40px);
-                opacity: 0.1;
-            }
+        .link-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--hk-pink);
+            box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+            background: #FFF5F7;
+            color: var(--hk-dark-pink);
         }
 
-        /* Notification Toast */
-        .toast {
-            visibility: hidden;
-            min-width: 200px;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            text-align: center;
-            border-radius: 20px;
-            padding: 10px 16px;
-            position: fixed;
-            z-index: 10;
-            top: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transition: opacity 0.4s, visibility 0.4s;
-        }
-
-        .toast.show {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Music Player Bar (Bottom Floating) */
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 400px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-
-        .music-info {
+        /* --- Audio Player --- */
+        .audio-player {
+            margin-top: 25px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 18px;
+            padding: 12px 18px;
             display: flex;
             align-items: center;
             gap: 12px;
-            overflow: hidden;
-        }
-
-        .music-cover {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            animation: spin 6s linear infinite;
-            animation-play-state: paused;
-        }
-
-        .music-title {
-            font-size: 0.85rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
+            border: 1px solid var(--glass-border);
         }
 
         .play-btn {
-            background: #fff;
-            color: #000;
+            background: var(--hk-pink);
             border: none;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
+            color: white;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            transition: background 0.2s;
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        .play-btn:hover {
+            background: var(--hk-dark-pink);
+        }
+
+        .track-info {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .track-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--hk-dark-pink);
+        }
+
+        .track-artist {
+            font-size: 11px;
+            color: #888;
+        }
+
+        /* --- Hello Kitty Floating Effect --- */
+        #kawaiiEffect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .kawaii-item {
+            position: absolute;
+            bottom: -50px;
+            pointer-events: none;
+            user-select: none;
+            will-change: transform;
+            opacity: 0;
+            animation: kawaiiFloatUp linear infinite;
+        }
+
+        .kawaii-item.small { font-size: 14px; }
+        .kawaii-item.medium { font-size: 24px; }
+        .kawaii-item.large { font-size: 34px; }
+
+        @keyframes kawaiiFloatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% { opacity: 0.85; }
+            80% { opacity: 0.6; }
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-	<!-- Dark Overlay -->
-    <div class="overlay"></div>
-
-    <!-- Falling Leaves Animation Layer -->
-    <div id="leavesContainer"></div>
-
-    <!-- Dark Overlay -->
-    <div class="overlay"></div>
-
-    <!-- Bio Card -->
-    <div class="container">
-        <!-- Profile Picture -->
-        <img src="avatar.jpg" alt="Avatar" class="avatar">
-
-        <!-- Title & Bio -->
-        <h1>nightcore</h1>
-        <p class="bio-text">Welcome to my bio site </p>
-
-       <!-- Simple Bio Box -->
-        <div class="bio-box">
-			<p>D.o.B:27/08/2010</p>
-            <p>Saying I'm nothing but "cute" is boring. You don't really know yet. How varied my tastes are, or that I can come across as cold sometimes. Some days I'm like a little kid, and other days I'm mature. And some days, I'm somewhere in between.</p>
-			<p>I could be smiling while my head is full of complex thoughts. I could look serious while my heart is fluttering inside. That's why you can't sum me up in one word. Let me make it clear: I'm not cute anymore. ✨</p>
+    <!-- Main Bio Card -->
+    <div class="bio-container">
+        
+        <div class="avatar-wrapper">
+            <img src="avatar.jpg" alt="Profile Avatar" class="avatar">
+            <span class="hk-bow-stamp">🎀</span>
         </div>
-		
-        <!-- Social Links -->
-        <div class="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=61594183016717" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://steamcommunity.com/id/aaah_thw/" target="_blank" title="Steam"><i class="fab fa-steam"></i></a>
-			<a href="https://www.faceit.com/en/players/-aloligirl" target="_blank" title="FACEIT">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M24 2.182h-3.818L13.091 12l7.091 9.818H24L16.909 12 24 2.182zM0 2.182h3.818l7.091 9.818L3.818 21.818H0l7.091-9.818L0 2.182z"/>
-    </svg>
-</a>
+
+        <h1>@Welcome</h1>
+        <p class="subtitle">Welcome to my link in bio! ✨</p>
+
+        <div class="links-wrapper">
+            <a href="#" class="link-btn"><span>🎀</span> Main Link</a>
+            <a href="#" class="link-btn"><span>🌸</span> Social Media</a>
+            <a href="#" class="link-btn"><span>⭐</span> Gaming Profile</a>
+            <a href="#" class="link-btn"><span>🎵</span> Spotify Playlist</a>
+        </div>
+
+        <!-- Audio Player Widget -->
+        <div class="audio-player">
+            <button class="play-btn" id="playPause">▶</button>
+            <div class="track-info">
+                <div class="track-title">Background Music</div>
+                <div class="track-artist">music.mp3</div>
+            </div>
+            <span style="font-size: 18px;">🎶</span>
+            <audio id="bgMusic" src="music.mp3" loop></audio>
         </div>
     </div>
 
-    <!-- Floating Audio Player -->
-    <div class="music-player">
-        <div class="music-info">
-            <img src="avatar_music.jpg" alt="Cover" class="music-cover" id="musicCover">
-            <div class="music-title">illit - NOT CUTE ANYMORE (Sped up)</div>
-        </div>
-        <button class="play-btn" onclick="toggleAudio()" id="playBtn">
-            <i class="fas fa-play" id="playIcon"></i>
-        </button>
-        <audio id="bgMusic" src="music.mp3" loop></audio>
-    </div>
+    <!-- Hello Kitty Floating Effect Layer & Script -->
+    <div id="kawaiiEffect"></div>
 
     <script>
-        // Copy to Clipboard Function
-        function copyID(text) {
-            navigator.clipboard.writeText(text);
-            const toast = document.getElementById("toast");
-            toast.classList.add("show");
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 2000);
-        }
+        // Audio Player Controls
+        const music = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playPause');
 
-        // Music Player Controls
-        const audio = document.getElementById("bgMusic");
-        const playBtn = document.getElementById("playIcon");
-        const musicCover = document.getElementById("musicCover");
-
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                playBtn.className = "fas fa-pause";
-                musicCover.style.animationPlayState = "running";
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.textContent = '⏸';
             } else {
-                audio.pause();
-                playBtn.className = "fas fa-play";
-                musicCover.style.animationPlayState = "paused";
+                music.pause();
+                playBtn.textContent = '▶';
             }
-        }
-	
         });
+
+        // Floating Hello Kitty Elements Effect
+        (function() {
+            const effectContainer = document.getElementById('kawaiiEffect');
+            const kawaiiSymbols = ['🎀', '⭐', '✨', '❤️', '🌸', '💝'];
+
+            function createKawaiiItem() {
+                if (!effectContainer) return;
+                const item = document.createElement('div');
+                item.className = 'kawaii-item';
+                item.textContent = kawaiiSymbols[Math.floor(Math.random() * kawaiiSymbols.length)];
+                
+                const sizes = ['small', 'medium', 'large'];
+                item.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+                item.style.left = Math.random() * 100 + 'vw';
+                
+                const duration = Math.random() * 6 + 8; // Floats for 8s to 14s
+                item.style.animationDuration = duration + 's';
+
+                effectContainer.appendChild(item);
+                setTimeout(() => item.remove(), duration * 1000);
+            }
+
+            setInterval(createKawaiiItem, 400);
+        })();
     </script>
-	<div id="kawaiiEffect"></div>
-
-<style>
-    #kawaiiEffect {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 1; /* Sits behind your main bio card */
-        overflow: hidden;
-    }
-
-    .kawaii-item {
-        position: absolute;
-        bottom: -50px;
-        pointer-events: none;
-        user-select: none;
-        will-change: transform;
-        opacity: 0;
-        animation: kawaiiFloatUp linear infinite;
-    }
-
-    .kawaii-item.small { font-size: 14px; }
-    .kawaii-item.medium { font-size: 24px; }
-    .kawaii-item.large { font-size: 34px; }
-
-    @keyframes kawaiiFloatUp {
-        0% {
-            transform: translateY(0) rotate(0deg) scale(0.5);
-            opacity: 0;
-        }
-        10% { opacity: 0.8; }
-        80% { opacity: 0.6; }
-        100% {
-            transform: translateY(-110vh) rotate(360deg) scale(1.2);
-            opacity: 0;
-        }
-    }
-</style>
-
-<script>
-    (function() {
-        const effectContainer = document.getElementById('kawaiiEffect');
-        const kawaiiSymbols = ['🎀', '⭐', '✨', '❤️', '🌸', '💝'];
-
-        function createKawaiiItem() {
-            if (!effectContainer) return;
-            const item = document.createElement('div');
-            item.className = 'kawaii-item';
-            item.textContent = kawaiiSymbols[Math.floor(Math.random() * kawaiiSymbols.length)];
-            
-            const sizes = ['small', 'medium', 'large'];
-            item.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
-            item.style.left = Math.random() * 100 + 'vw';
-            
-            const duration = Math.random() * 6 + 8; // 8s to 14s float
-            item.style.animationDuration = duration + 's';
-
-            effectContainer.appendChild(item);
-            setTimeout(() => item.remove(), duration * 1000);
-        }
-
-        setInterval(createKawaiiItem, 400);
-    })();
-</script>
-<!-- === HELLO KITTY KAWAII POP EFFECT (END) === -->
 </body>
 </html>
