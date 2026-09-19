@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nightcore's bio</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+			color: #fff;
+			min-height: 100vh;
+			min-height: 100dvh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px 10px 100px 10px;
+			position: relative;
+			overflow-x: hidden;
+		}
+
+		/* Full-screen fixed background container for Mobile & PC */
+		body::before {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url('background.jpg');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: -2;
+		}
+
+		/* Dark Overlay */
+		.overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.55);
+			z-index: -1;
+		}
+
+        /* Main Glassmorphism Container */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .bio-text {
+            font-size: 0.9rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .bio-box {
+			width: 100%;                  /* Fills left-to-right inside container */
+			background: rgba(255, 255, 255, 0.15);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			border-radius: 16px;
+			padding: 16px 20px;
+			margin-bottom: 25px;
+			text-align: center;
+		}
+
+        .copy-box:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .copy-title {
+            font-size: 0.8rem;
+            color: #ffb6c1;
+            font-weight: 600;
+        }
+
+        .copy-val {
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Social Icons Row */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #fff;
+            color: #111;
+            transform: translateY(-3px);
+        }
+		
+		/* Falling Leaves Animation Layer */
+        #leavesContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 2; /* Sits above overlay, behind content */
+            overflow: hidden;
+        }
+
+        .leaf-element {
+            position: absolute;
+            top: -40px;
+            pointer-events: none;
+            user-select: none;
+            will-change: transform;
+            animation: fallAnimation linear infinite;
+        }
+
+        @keyframes fallAnimation {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) translateX(60px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg) translateX(-40px);
+                opacity: 0.1;
+            }
+        }
+
+        /* Notification Toast */
+        .toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            text-align: center;
+            border-radius: 20px;
+            padding: 10px 16px;
+            position: fixed;
+            z-index: 10;
+            top: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.4s, visibility 0.4s;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Music Player Bar (Bottom Floating) */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 400px;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .music-cover {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: spin 6s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .music-title {
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .play-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+	<!-- Dark Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Falling Leaves Animation Layer -->
+    <div id="leavesContainer"></div>
+
+    <!-- Dark Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Bio Card -->
+    <div class="container">
+        <!-- Profile Picture -->
+        <img src="avatar.jpg" alt="Avatar" class="avatar">
+
+        <!-- Title & Bio -->
+        <h1>nightcore</h1>
+        <p class="bio-text">Welcome to my bio site </p>
+
+       <!-- Simple Bio Box -->
+        <div class="bio-box">
+			<p>D.o.B:27/08/2010</p>
+            <p>Saying I'm nothing but "cute" is boring. You don't really know yet. How varied my tastes are, or that I can come across as cold sometimes. Some days I'm like a little kid, and other days I'm mature. And some days, I'm somewhere in between.</p>
+			<p>I could be smiling while my head is full of complex thoughts. I could look serious while my heart is fluttering inside. That's why you can't sum me up in one word. Let me make it clear: I'm not cute anymore. ✨</p>
+        </div>
+		
+        <!-- Social Links -->
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61594183016717" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://steamcommunity.com/id/aaah_thw/" target="_blank" title="Steam"><i class="fab fa-steam"></i></a>
+			<a href="https://www.faceit.com/en/players/-aloligirl" target="_blank" title="FACEIT">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 2.182h-3.818L13.091 12l7.091 9.818H24L16.909 12 24 2.182zM0 2.182h3.818l7.091 9.818L3.818 21.818H0l7.091-9.818L0 2.182z"/>
+    </svg>
+</a>
+        </div>
+    </div>
+
+    <!-- Floating Audio Player -->
+    <div class="music-player">
+        <div class="music-info">
+            <img src="avatar_music.jpg" alt="Cover" class="music-cover" id="musicCover">
+            <div class="music-title">illit - NOT CUTE ANYMORE (Sped up)</div>
+        </div>
+        <button class="play-btn" onclick="toggleAudio()" id="playBtn">
+            <i class="fas fa-play" id="playIcon"></i>
+        </button>
+        <audio id="bgMusic" src="music.mp3" loop></audio>
+    </div>
+
+    <script>
+        // Copy to Clipboard Function
+        function copyID(text) {
+            navigator.clipboard.writeText(text);
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2000);
+        }
+
+        // Music Player Controls
+        const audio = document.getElementById("bgMusic");
+        const playBtn = document.getElementById("playIcon");
+        const musicCover = document.getElementById("musicCover");
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.className = "fas fa-pause";
+                musicCover.style.animationPlayState = "running";
+            } else {
+                audio.pause();
+                playBtn.className = "fas fa-play";
+                musicCover.style.animationPlayState = "paused";
+            }
+        }
+		// High Reliability Falling Leaves Generator
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('leavesContainer');
+            
+            // SVG leaf graphics for clear rendering across all devices
+            const leafSVGs = [
+                `<svg width="24" height="24" viewBox="0 0 24 24" fill="#8bc34a"><path d="M17,8C8,10 5,16 3,22C5,22 10,20 15,15C18,12 18,9 17,8Z"/><path d="M16,2C8,4 5,10 3,16C5,16 10,14 15,9C18,6 17,3 16,2Z"/></svg>`,
+                `<svg width="24" height="24" viewBox="0 0 24 24" fill="#ff9800"><path d="M12,2L10.5,6.5L6,5L7.5,9.5L3,11L7.5,12.5L6,17L10.5,15.5L12,20L13.5,15.5L18,17L16.5,12.5L21,11L16.5,9.5L18,5L13.5,6.5L12,2Z"/></svg>`,
+                `<svg width="24" height="24" viewBox="0 0 24 24" fill="#4caf50"><path d="M12,3C6.5,3 2,6.5 2,12C2,17.5 6.5,21 12,21C17.5,21 22,17.5 22,12C22,6.5 17.5,3 12,3Z"/></svg>`
+            ];
+
+            function spawnLeaf() {
+                if (!container) return;
+
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf-element';
+                
+                // Select random SVG graphic
+                leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
+
+                // Random positioning and movement speeds
+                const startX = Math.random() * 100; // start anywhere horizontally (0-100vw)
+                const fallDuration = Math.random() * 4 + 5; // 5s to 9s fall duration
+                const scale = Math.random() * 0.6 + 0.6; // random size scale (0.6x to 1.2x)
+
+                leaf.style.left = startX + 'vw';
+                leaf.style.animationDuration = fallDuration + 's';
+                leaf.style.transform = `scale(${scale})`;
+
+                container.appendChild(leaf);
+
+                // Auto-cleanup DOM after animation finishes
+                setTimeout(() => {
+                    leaf.remove();
+                }, fallDuration * 1000);
+            }
+
+            // Spawn a new leaf every 400 milliseconds
+            setInterval(spawnLeaf, 400);
+        });
+    </script>
+</body>
+</html>
