@@ -158,30 +158,17 @@
             overflow: hidden;
         }
 
-        .leaf-element {
-            position: absolute;
-            top: -40px;
-            pointer-events: none;
-            user-select: none;
-            will-change: transform;
-            animation: fallAnimation linear infinite;
-        }
+        body {
+    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #11998e);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
 
-        @keyframes fallAnimation {
-            0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translateY(50vh) rotate(180deg) translateX(60px);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(105vh) rotate(360deg) translateX(-40px);
-                opacity: 0.1;
-            }
-        }
-
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
         /* Notification Toast */
         .toast {
             visibility: hidden;
