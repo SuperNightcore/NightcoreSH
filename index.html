@@ -146,41 +146,68 @@
             transform: translateY(-3px);
         }
 		
-		/* Falling Leaves Animation Layer */
-        #leavesContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 2; /* Sits above overlay, behind content */
-            overflow: hidden;
-        }
+		<!-- Replace your leaf container with canvas -->
+<canvas id="particleCanvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:1;"></canvas>
 
-        .leaf-element {
-            position: absolute;
-            top: -40px;
-            pointer-events: none;
-            user-select: none;
-            will-change: transform;
-            animation: fallAnimation linear infinite;
-        }
+<script>
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
 
-        @keyframes fallAnimation {
-            0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translateY(50vh) rotate(180deg) translateX(60px);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(105vh) rotate(360deg) translateX(-40px);
-                opacity: 0.1;
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = (Math.random() - 0.5) * 1.2;
+        this.radius = Math.random() * 2 + 1;
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+        p.update();
+        p.draw();
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = p.x - particles[j].x;
+            const dy = p.y - particles[j].y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 120})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
             }
         }
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
 
         /* Notification Toast */
         .toast {
