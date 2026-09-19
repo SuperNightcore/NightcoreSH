@@ -18,6 +18,74 @@
         }
 
         body {
+			<div id="kawaiiEffect"></div>
+
+<style>
+    #kawaiiEffect {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 1; /* Sits behind your main bio card */
+        overflow: hidden;
+    }
+
+    .kawaii-item {
+        position: absolute;
+        bottom: -50px;
+        pointer-events: none;
+        user-select: none;
+        will-change: transform;
+        opacity: 0;
+        animation: kawaiiFloatUp linear infinite;
+    }
+
+    .kawaii-item.small { font-size: 14px; }
+    .kawaii-item.medium { font-size: 24px; }
+    .kawaii-item.large { font-size: 34px; }
+
+    @keyframes kawaiiFloatUp {
+        0% {
+            transform: translateY(0) rotate(0deg) scale(0.5);
+            opacity: 0;
+        }
+        10% { opacity: 0.8; }
+        80% { opacity: 0.6; }
+        100% {
+            transform: translateY(-110vh) rotate(360deg) scale(1.2);
+            opacity: 0;
+        }
+    }
+</style>
+
+<script>
+    (function() {
+        const effectContainer = document.getElementById('kawaiiEffect');
+        const kawaiiSymbols = ['🎀', '⭐', '✨', '❤️', '🌸', '💝'];
+
+        function createKawaiiItem() {
+            if (!effectContainer) return;
+            const item = document.createElement('div');
+            item.className = 'kawaii-item';
+            item.textContent = kawaiiSymbols[Math.floor(Math.random() * kawaiiSymbols.length)];
+            
+            const sizes = ['small', 'medium', 'large'];
+            item.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+            item.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 6 + 8; // 8s to 14s float
+            item.style.animationDuration = duration + 's';
+
+            effectContainer.appendChild(item);
+            setTimeout(() => item.remove(), duration * 1000);
+        }
+
+        setInterval(createKawaiiItem, 400);
+    })();
+</script>
+<!-- === HELLO KITTY KAWAII POP EFFECT (END) === -->
 			color: #fff;
 			min-height: 100vh;
 			min-height: 100dvh;
@@ -146,26 +214,6 @@
             transform: translateY(-3px);
         }
 		
-		/* Falling Leaves Animation Layer */
-        #leavesContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 2; /* Sits above overlay, behind content */
-            overflow: hidden;
-        }
-
-        .leaf-element {
-            position: absolute;
-            top: -40px;
-            pointer-events: none;
-            user-select: none;
-            will-change: transform;
-            animation: fallAnimation linear infinite;
-        }
 
         @keyframes fallAnimation {
             0% {
@@ -346,46 +394,76 @@
                 musicCover.style.animationPlayState = "paused";
             }
         }
-		// High Reliability Falling Leaves Generator
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('leavesContainer');
-            
-            // SVG leaf graphics for clear rendering across all devices
-            const leafSVGs = [
-                `<svg width="24" height="24" viewBox="0 0 24 24" fill="#8bc34a"><path d="M17,8C8,10 5,16 3,22C5,22 10,20 15,15C18,12 18,9 17,8Z"/><path d="M16,2C8,4 5,10 3,16C5,16 10,14 15,9C18,6 17,3 16,2Z"/></svg>`,
-                `<svg width="24" height="24" viewBox="0 0 24 24" fill="#ff9800"><path d="M12,2L10.5,6.5L6,5L7.5,9.5L3,11L7.5,12.5L6,17L10.5,15.5L12,20L13.5,15.5L18,17L16.5,12.5L21,11L16.5,9.5L18,5L13.5,6.5L12,2Z"/></svg>`,
-                `<svg width="24" height="24" viewBox="0 0 24 24" fill="#4caf50"><path d="M12,3C6.5,3 2,6.5 2,12C2,17.5 6.5,21 12,21C17.5,21 22,17.5 22,12C22,6.5 17.5,3 12,3Z"/></svg>`
-            ];
-
-            function spawnLeaf() {
-                if (!container) return;
-
-                const leaf = document.createElement('div');
-                leaf.className = 'leaf-element';
-                
-                // Select random SVG graphic
-                leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
-
-                // Random positioning and movement speeds
-                const startX = Math.random() * 100; // start anywhere horizontally (0-100vw)
-                const fallDuration = Math.random() * 4 + 5; // 5s to 9s fall duration
-                const scale = Math.random() * 0.6 + 0.6; // random size scale (0.6x to 1.2x)
-
-                leaf.style.left = startX + 'vw';
-                leaf.style.animationDuration = fallDuration + 's';
-                leaf.style.transform = `scale(${scale})`;
-
-                container.appendChild(leaf);
-
-                // Auto-cleanup DOM after animation finishes
-                setTimeout(() => {
-                    leaf.remove();
-                }, fallDuration * 1000);
-            }
-
-            // Spawn a new leaf every 400 milliseconds
-            setInterval(spawnLeaf, 400);
+	
         });
     </script>
+	<div id="kawaiiEffect"></div>
+
+<style>
+    #kawaiiEffect {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 1; /* Sits behind your main bio card */
+        overflow: hidden;
+    }
+
+    .kawaii-item {
+        position: absolute;
+        bottom: -50px;
+        pointer-events: none;
+        user-select: none;
+        will-change: transform;
+        opacity: 0;
+        animation: kawaiiFloatUp linear infinite;
+    }
+
+    .kawaii-item.small { font-size: 14px; }
+    .kawaii-item.medium { font-size: 24px; }
+    .kawaii-item.large { font-size: 34px; }
+
+    @keyframes kawaiiFloatUp {
+        0% {
+            transform: translateY(0) rotate(0deg) scale(0.5);
+            opacity: 0;
+        }
+        10% { opacity: 0.8; }
+        80% { opacity: 0.6; }
+        100% {
+            transform: translateY(-110vh) rotate(360deg) scale(1.2);
+            opacity: 0;
+        }
+    }
+</style>
+
+<script>
+    (function() {
+        const effectContainer = document.getElementById('kawaiiEffect');
+        const kawaiiSymbols = ['🎀', '⭐', '✨', '❤️', '🌸', '💝'];
+
+        function createKawaiiItem() {
+            if (!effectContainer) return;
+            const item = document.createElement('div');
+            item.className = 'kawaii-item';
+            item.textContent = kawaiiSymbols[Math.floor(Math.random() * kawaiiSymbols.length)];
+            
+            const sizes = ['small', 'medium', 'large'];
+            item.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+            item.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 6 + 8; // 8s to 14s float
+            item.style.animationDuration = duration + 's';
+
+            effectContainer.appendChild(item);
+            setTimeout(() => item.remove(), duration * 1000);
+        }
+
+        setInterval(createKawaiiItem, 400);
+    })();
+</script>
+<!-- === HELLO KITTY KAWAII POP EFFECT (END) === -->
 </body>
 </html>
